@@ -1,11 +1,19 @@
 const express = require('express')
 const router = express.Router()
-const { signup } = require('../controllers/auth')
+const { signup, signin, signout, requireSignin } = require('../controllers/auth')
 
 // validators
 const { runValidation } = require('../validators')
-const { userSignupValidator } = require('../validators/auth')
+const { userSignupValidator, userSigninValidator } = require('../validators/auth')
 
 router.post('/signup', userSignupValidator, runValidation, signup)
+router.post('/signin', userSigninValidator, runValidation, signin)
+router.get('/signout', signout)
+
+// router.get('/secret', requireSign, (req, res) => {
+//     res.json({
+//         message: "you have access to secret page"
+//     })
+// })
 
 module.exports = router
